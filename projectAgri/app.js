@@ -6,8 +6,15 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productRouter = require('./routes/products');
+var mongoose = require('mongoose');
 
 var app = express();
+
+//database connection
+mongoose.connect('mongodb://localhost/agriDB',   //database name: bookDB
+{ useNewUrlParser: true, useUnifiedTopology: true }, 
+() => { console.log('successful database connection') });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +36,7 @@ app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/products',productRouter);
 
 
 // catch 404 and forward to error handler
