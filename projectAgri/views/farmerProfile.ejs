@@ -32,7 +32,7 @@
         <div class="container col-md-12 ml-5 mt-5 mb-5">
             <div class="row">
                 <button type="button" class="btn btn-primary col-md-3 mr-5 p-3">Message</button>
-                <button type="button" class="btn btn-secondary col-md-3 mr-5"><a href="/users/addItem">Add</a></button>
+                <button type="button" class="btn btn-secondary col-md-3 mr-5"><a href="/products/addItem">Add</a></button>
                 <button type="button" class="btn btn-secondary col-md-3 mr-5"><a href="/users/editItem">Edit</a></button>
                 <button type="button" class="btn btn-success col-md-3 mr-5">Order</button>
             </div>
@@ -42,44 +42,48 @@
         <section class="Featured">
             <h2 class="page-section-heading text-center text-uppercase text-secondary pt-5">My Products</h2>
             <!--  -->
+            <% obj.forEach(function(product,i) {%>
             <div class="container mt-4">
                 <div class="row">
                     <!-- 1 -->
                     <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="/images/rice.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
 
                         <div class="card-body">
-                            <h5 class="card-title">RICE</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                            <h5 class="card-title"><%= product.productName %></h5>
+                            <p class="card-text"><%= product.description %>
                             </p>
+                            <p class="card-text">Stock : <%= product.stock %>
                             <a href="#" class="stretched-link">Go somewhere</a>
                         </div>
                     </div>
-                    <!-- 2 -->
+<!--                   
                     <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="/images/rice.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
 
                         <div class="card-body">
-                            <h5 class="card-title">RICE</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                            <h5 class="card-title"><%= product.productName %></h5>
+                            <p class="card-text"><%= product.description %>
                             </p>
+                            <p class="card-text">Stock : <%= product.stock %>
                             <a href="#" class="stretched-link">Go somewhere</a>
                         </div>
                     </div>
-                    <!-- 3 -->
+                    
                     <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="/images/rice.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
 
                         <div class="card-body">
-                            <h5 class="card-title">RICE</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                            <h5 class="card-title"><%= product.productName %></h5>
+                            <p class="card-text"><%= product.description %>
                             </p>
+                            <p class="card-text">Stock : <%= product.stock %>
                             <a href="#" class="stretched-link">Go somewhere</a>
                         </div>
                     </div>
-                    <!-- 4 -->
+                    
                     <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="/images/rice.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
 
                         <div class="card-body">
                             <h5 class="card-title">RICE</h5>
@@ -87,10 +91,11 @@
                             </p>
                             <a href="#" class="stretched-link">Go somewhere</a>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
+            <% }) %>
             <!-- eof featured product -->
         </section>
     </div>

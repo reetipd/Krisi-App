@@ -21,9 +21,7 @@ router.post('/login',function(req,res,next){
   res.render('farmerProfile')
 })
 
-router.get('/addItem', function(req,res){
-  res.render('addItem')
-})
+
 
 router.post('/signup',[ 
   check ('password', 'Pw small').isLength({min:4})

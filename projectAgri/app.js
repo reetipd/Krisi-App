@@ -14,6 +14,8 @@ var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 var app = express();
 
+const multer = require('multer');
+
 //database connection
 mongoose.connect('mongodb://localhost/agriDB',   //database name: bookDB
 { useNewUrlParser: true, useUnifiedTopology: true }, 

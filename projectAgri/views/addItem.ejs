@@ -2,10 +2,10 @@
 <body>
     <h2 class=" masthead mt-5 mb-0 pb-5 page-section-heading text-center text-secondary">Edit/Delete Items</h2>
     <div class="container">
-        <form method="post" action="">
+        <form method="POST" action="/products/addItem"  enctype="multipart/form-data">
             <div class="form-group">
-                <label for="title">Product Name:</label>
-                <input type="string" class="form-control" id="title" name="title" placeholder="Enter title" value="">
+                <label for="productName">Product Name:</label>
+                <input type="string" class="form-control" id="productName" name="productName" placeholder="Enter product name" value="">
             </div>
             <div class="form-group">
                 <label for="category">Category:</label>
@@ -16,12 +16,30 @@
                 <input type="string" class="form-control" id="description" name="description" placeholder="Enter description" value="">
             </div>
             <div class="form-group">
-                <label for="sth">Idon't know:</label>
-                <input type="string" class="form-control" id="sth" name="sth" placeholder="sth" value="">
+                <label for="stock">Stock:</label>
+                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" value="">
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" value="">
+            </div>
+            <!-- <form action="/" method="POST" enctype="multipart/form-data">
+                <div class="file-field input-field form-group">
+                    <label for="img">Image:</label>
+                    <div class="btn">
+                        <span>File</span>
+                        <input name="myImage" type="file" multiple>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form> -->
+            <div class="form-group">
+                <label for="img">Image:</label>
+                <input type="file" name="myImage">
             </div>
             <div class="mb-3">
-                <button type="submit " class="btn btn-primary mr-2" name="action">Submit</button>
-                <button type="submit" class="btn btn-danger " name="action">Delete</button>
+                <button type="submit" class="btn btn-primary mr-2" name="action">Submit</button>
+                <button type="button" class="btn btn-danger " name="action">Delete</button>
             </div>
         </form>
 </body>

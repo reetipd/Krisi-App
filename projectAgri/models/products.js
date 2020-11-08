@@ -3,9 +3,12 @@ var mongoose = require('mongoose');
 //define the product model schema
 const ProductsSchema = mongoose.Schema({
     
-    title : 
+    name : 
     {
         type : String,
+    },
+    category:{
+        type:String,
     },
     description : {
         type : String,
@@ -22,8 +25,7 @@ const ProductsSchema = mongoose.Schema({
         type : Boolean,
     },
     img: {
-        data: Buffer, 
-        contentType: String 
+        type:String,
     },
     farmer_name:{
         type : String,
