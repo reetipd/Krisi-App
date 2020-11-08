@@ -8,7 +8,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRouter = require('./routes/products');
 var mongoose = require('mongoose');
-
+var bcrypt = require('bcrypt')
+const { check, validationResult } = require('express-validator');
+var expressValidator = require('express-validator');
+var expressSession = require('express-session');
 var app = express();
 
 //database connection
@@ -33,6 +36,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
 app.use(bodyParser.json())
+
+
+app.use(expressSession({secret:'max', saveUninitialized:false,resave:false}))
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

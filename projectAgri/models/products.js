@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
-const productsSchema = mongoose.Schema({
+//define the product model schema
+const ProductsSchema = mongoose.Schema({
+    
     title : 
     {
         type : String,
@@ -16,13 +18,24 @@ const productsSchema = mongoose.Schema({
     price : {
         type : Number,
     },
+    is_available :{
+        type : Boolean,
+    },
     img: {
         data: Buffer, 
         contentType: String 
+    },
+    farmer_name:{
+        type : String,
+    },
+    farmer_id : {
+        type : Number,
     },
     createdAt: {
         type : Date,
         default : Date.now(),
     }
 
-})
+});
+
+module.exports = mongoose.model('Products',ProductsSchema);
