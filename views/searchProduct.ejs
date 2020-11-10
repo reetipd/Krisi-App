@@ -1,0 +1,104 @@
+<% include partials/nav %>
+
+    <body class style="background:#e4dfda">
+
+        <h2 class="masthead mt-5 pb-0  page-section-heading text-center text-uppercase text-secondary">Products</h2>
+        <div class="container search-box col-md-6 mt-5 pb-3">
+
+            <form action="/searchproducts" method="GET">
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Category One</a>
+                            <a class="dropdown-item" href="#">Category Two</a>
+                            <a class="dropdown-item" href="#">Category Three</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated Category</a>
+                        </div>
+                    </div>
+                    <input type="text" name="search" class="form-control pt-4 pb-4 pr-5" id="form-text" placeholder="Enter your Items">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Search</button>
+
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+        <div class="container ml-5">
+            <div class="row">
+                <div class="col-md-2 pl-0">
+                    <h6 class="mb-3"> List of Categories</h6>
+                    <ul class=" list-unstyled pl-0">
+                        <b>Cereals</b>
+                        <li>Rice</li>
+                        <li>Maize</li>
+                        <li>Wheat</li>
+                        <li>Barly</li>
+                        <li>Finger Millet</li>
+                        <li>Buckwheat</li>
+                    </ul>
+                    <ul class=" list-unstyled pl-0">
+                        <b>Vegetables</b>
+                        <li>Potato</li>
+                        <li>Brinjal</li>
+                        <li>Tomato</li>
+                        <li>Beans</li>
+                        <li>Mushrooms</li>
+                        <li>Onion</li>
+                        <li>Beet Roots</li>
+                        <li>Cucumber</li>
+                    </ul>
+                    <ul class="list-unstyled pl-0 ">
+
+                        <b>Fruits</b>
+                        <li>Mango</li>
+                        <li>Guava</li>
+                        <li>Raspberry</li>
+                        <li>Pineapple</li>
+                        <li>Grape</li>
+                        <li>Banana</li>
+                        <li>Apple</li>
+                    </ul>
+                    <ul class="list-unstyled pl-0 ">
+                        <b>Legumes</b>
+                        <li>Chick Pea</li>
+                        <li>Pegion Pea</li>
+                        <li>Lentil</li>
+                        <li>Black Gram</li>
+                    </ul>
+                    <ul class="list-unstyled pl-0 ">
+                        <b>Oli seed Crop</b>
+                        <li>Mustard</li>
+                        <li>Sunflower</li>
+                        <li>Groundnut</li>
+                    </ul>
+                </div>
+                <div class="container mt-2 col-md-10 ">
+                    <div class="row ">
+                        <!-- 1 -->
+                        <% productList.forEach(function (products, id) {%>
+                            <div class="col-auto mb-3 " style="width: 18rem; ">
+                                <img class="card-img-top " src="/images/rice.jpg " alt="Card image cap ">
+                                <div class="card-body ">
+                                    <h5 class="card-title ">
+                                        <%= products.title %>
+                                    </h5>
+                                    <p class="card-text ">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                    </p>
+                                    <a href="# " class="stretched-link ">Go somewhere</a>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Footer-->
+        <% include partials/footer %>
+    </body>
+    </html>

@@ -1,23 +1,19 @@
-var express = require('express');
-var  router = express.Router();
-var multer = require('multer');
-var path = require('path');
-var fs = require('fs');
+const express = require('express');
+const  router = express.Router();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
-var product = require('../resources/pro');
 let Products = require('../models/products');
-router.get('/', function(req, res, next){
-    res.render('products',{product : product});
-});
 
 router.get('/addItem', function(req,res){
     res.render('addItem')
 });
 
-var storage = multer.diskStorage({
-    destination : './public/uploads',
+let storage = multer.diskStorage({
+    destination : './public/uploads',  //where to upload
     filename : function(req, file, cb){
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); //renaming photo name
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); //renaming photo name//myImage-Date.extension.
     }
 });
 
@@ -33,21 +29,21 @@ router.post('/addItem',upload,async function(req,res){
         description : req.body.description,
         stock : req.body.stock,
         price : req.body.price, 
-        img : '/uploads/'+req.file.filename
+        img : '/uploads/'+req.file.filename //filename - storage garda use gareko name.
     }
     const product = new Products(obj);
     let promise = product.save();
     await promise;
     let productitems = await Products.find();
+    console.log(productitems);
     res.render('farmerProfile',{obj : productitems});
     });
-    // promise.then(()=>{
-    //     console.log('product added');
-    //     console.log(obj);
-    //     res.render('farmerProfile',{obj:obj});
-    // })
 
-//})
+
+router.get('/searchProducts',async function(req,res,next){
+    let products = await Products.find();
+    res.render('searchProduct',{productList : products});
+})
 
 
 module.exports = router;

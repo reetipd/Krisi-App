@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //define the product model schema
 const ProductsSchema = mongoose.Schema({

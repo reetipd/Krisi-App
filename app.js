@@ -9,7 +9,6 @@ var usersRouter = require('./routes/users');
 var productRouter = require('./routes/products');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt')
-const { check, validationResult } = require('express-validator');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 var app = express();
@@ -17,7 +16,7 @@ var app = express();
 const multer = require('multer');
 
 //database connection
-mongoose.connect('mongodb://localhost/agriDB',   //database name: bookDB
+mongoose.connect('mongodb://localhost/agriDB',   
 { useNewUrlParser: true, useUnifiedTopology: true }, 
 () => { console.log('successful database connection') });
 

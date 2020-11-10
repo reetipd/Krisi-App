@@ -1,17 +1,20 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //define the farmer model schema
-const FarmerSchema = mongoose.Schema({
-    firstname : {
+const UserSchema = mongoose.Schema({
+    action:{
+        type:String
+    },
+    fname : {
         type : String
     },
-    lastname : {
+    lame : {
         type : String
     },
     // farm_name : {
     //     type : String,
     // },
-    phoneno : {
+    mobilenumber : {
         type: Number,
     },
     citizeship : {
@@ -26,6 +29,9 @@ const FarmerSchema = mongoose.Schema({
     password : {
         type : String,
     },
+    password2 : {
+        type:String,
+    },
     address : {
         type : String,
     },
@@ -38,4 +44,4 @@ const FarmerSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Farmer',FarmerSchema);
+module.exports = mongoose.model('User',UserSchema);
