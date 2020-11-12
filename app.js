@@ -8,13 +8,30 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRouter = require('./routes/products');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
+const flash = require('connect-flash')
 var app = express();
 
 const multer = require('multer');
+const passport = require('passport');
 
+//Passport middleware
+const session = require('express-session');
+require('./config/passport')(passport);
+
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 //database connection
 mongoose.connect('mongodb://localhost/agriDB',   
 { useNewUrlParser: true, useUnifiedTopology: true }, 
@@ -50,7 +67,7 @@ app.use('/products',productRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
+})
 
 // error handler
 app.use(function(err, req, res, next) {

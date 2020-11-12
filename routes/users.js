@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser');
 const Users = require('../models/user');
 const Products = require('../models/products');
+const passport = require('passport');
+
+const {ensureAuth} = require('../config/auth');
+const user = require('../models/user');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -51,10 +55,24 @@ router.get('/login', function(req,res,next){
   res.render('login');
 });
 
-router.post('/login',async function(req,res,next){
-  let productitems = await Products.find();
-  console.log(productitems);
-  res.render('farmerProfile',{obj:productitems})
-});
+router.post('/login', (req,res,next) =>{
+  passport.authenticate('local',{
+    successRedirect : '/users/farmerProfile',
+    failureRedirect : '/users/login'
+    
+  })(req,res,next);
+})
+
+router.get('/farmerProfile', ensureAuth, async function(req,res){
+  //res.send('Here')
+   let products = await Products.find();
+   res.render('farmerProfile',{obj: products,user : req.user});
+})
+
+// router.post('/login',async function(req,res,next){
+//   let productitems = await Products.find();
+//   console.log(productitems);
+//   res.render('farmerProfile',{obj:productitems})
+// });
 
 module.exports = router;

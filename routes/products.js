@@ -3,7 +3,8 @@ const  router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const auth = require('../config/auth')
+const {ensureAuth} = require('../config/auth');
 let Products = require('../models/products');
 
 router.get('/addItem', function(req,res){
@@ -38,6 +39,7 @@ router.post('/addItem',upload,async function(req,res){
     console.log(productitems);
     res.render('farmerProfile',{obj : productitems});
     });
+
 
 
 router.get('/searchProducts',async function(req,res,next){
