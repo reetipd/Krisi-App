@@ -3,7 +3,8 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const auth = require('../config/auth')
+const { ensureAuth } = require('../config/auth');
 let Products = require('../models/products');
 const { connect } = require('http2');
 
@@ -72,6 +73,10 @@ router.get('/searchProducts', function(req, res, next) {
         });
     }
 });
+router.get('/searchProducts', async function(req, res, next) {
+    let products = await Products.find();
+    res.render('searchProduct', { productList: products });
+})
 
 
 module.exports = router;
