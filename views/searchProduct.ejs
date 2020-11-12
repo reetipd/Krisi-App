@@ -5,7 +5,7 @@
         <h2 class="masthead mt-5 pb-0  page-section-heading text-center text-uppercase text-secondary">Products</h2>
         <div class="container search-box col-md-6 mt-5 pb-3">
 
-            <form action="/searchproducts" method="GET">
+            <form action="/products/searchproducts" method="GET">
                 <div class="input-group mb-3 ">
                     <div class="input-group-prepend">
                         <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All</button>
@@ -85,11 +85,12 @@
                                 <img class="card-img-top " src="/images/rice.jpg " alt="Card image cap ">
                                 <div class="card-body ">
                                     <h5 class="card-title ">
-                                        <%= products.title %>
+                                        <%= products.name %>
                                     </h5>
-                                    <p class="card-text ">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                    <p class="card-text ">
+                                        <b> Rs. <%= products.id %>/unit</b>
                                     </p>
-                                    <a href="# " class="stretched-link ">Go somewhere</a>
+                                    <a href="/products/searchProducts/item/<%= products.id%>" class="stretched-link ">See More</a>
                                 </div>
                             </div>
                             <% }) %>
@@ -101,4 +102,5 @@
         <!-- Footer-->
         <% include partials/footer %>
     </body>
+
     </html>
