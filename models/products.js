@@ -30,8 +30,8 @@ const ProductsSchema = mongoose.Schema({
     farmer_name:{
         type : String,
     },
-    farmer_id : {
-        type : Number,
+    user: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     createdAt: {
         type : Date,

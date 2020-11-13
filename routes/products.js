@@ -23,7 +23,7 @@ const upload = multer({
 }).single('myImage');
 
 
-router.post('/addItem',upload,async function(req,res){
+router.post('/addItem',ensureAuth,upload,async function(req,res){
     var obj = {
         name : req.body.productName,
         category : req.body.category,
@@ -37,7 +37,7 @@ router.post('/addItem',upload,async function(req,res){
     await promise;
     let productitems = await Products.find();
     console.log(productitems);
-    res.render('farmerProfile',{obj : productitems});
+    res.render('farmerProfile',{obj : productitems,user : req.user});
     });
 
 
