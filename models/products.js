@@ -29,13 +29,8 @@ const ProductsSchema = mongoose.Schema({
     farmer_name: {
         type: String,
     },
-<<<<<<< HEAD
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
-=======
-    farmer_id: {
-        type: Number,
->>>>>>> 341aecf74df17c8c9e583e96197bab37ff86cbf2
     },
     createdAt: {
         type: Date,
