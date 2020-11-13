@@ -56,5 +56,9 @@ router.post('/login',async function(req,res,next){
   console.log(productitems);
   res.render('farmerProfile',{obj:productitems})
 });
-
+router.get('/farmerProfile',async function(req,res,next){
+  let productitems = await Products.find();
+  console.log(productitems);
+  res.render('farmerProfile',{obj:productitems})
+});
 module.exports = router;

@@ -10,6 +10,7 @@ router.get('/addItem', function(req,res){
     res.render('addItem')
 });
 
+
 let storage = multer.diskStorage({
     destination : './public/uploads',  //where to upload
     filename : function(req, file, cb){
