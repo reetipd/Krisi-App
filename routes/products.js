@@ -128,22 +128,41 @@ router.get('/cart/:id' ,ensureAuth,async function(req,res){
     
 });
 
-router.get('/cart',ensureAuth,async function(req,res){
+// router.get('/cart',ensureAuth,async function(req,res){
+//     let order = await Orders.find({user : req.user }).populate('product user')
+//     console.log('----------------------cart------------')
+//     console.log(order)
+//     console.log(req.user)
+//     res.render('cart',{order_obj : order})
+// });
+// router.get('/searchProducts', async function(req, res, next) {
+//     await Products.find(function(err, products) {
+//         res.render('searchProduct', { products: products });
+//     });
+
+// })
+
+router.get('/cart', ensureAuth,async function(req, res) {
+    // let product = await Products.find();
+    // res.render('cart', { product: product });
     let order = await Orders.find({user : req.user }).populate('product user')
     console.log('----------------------cart------------')
-    console.log(order)
+    order.forEach(function(o){
+        console.log(o.product.name)
+    })
     console.log(req.user)
     res.render('cart',{order_obj : order})
 });
-router.get('/searchProducts', async function(req, res, next) {
-    await Products.find(function(err, products) {
-        res.render('searchProduct', { products: products });
-    });
 
+router.get('/order/remove/:id', function(req,res){
+    console.log('in remove') 
+    Orders.remove({_id : req.params.id}, function(){
+        res.redirect('/users/buyerProfile')
+    })
+});
+
+router.get('/checkout', function(req,res){
+    res.send('Chcekout')
 })
 
-router.get('/cart', async function(req, res) {
-    let product = await Products.find();
-    res.render('cart', { product: product });
-})
 module.exports = router;
