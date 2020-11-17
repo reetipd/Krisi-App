@@ -56,16 +56,7 @@ router.get('/login', function(req,res,next){
 });
 
  
-router.post('/login',async function(req,res,next){
-  let productitems = await Products.find();
-  console.log(productitems);
-  res.render('farmerProfile',{obj:productitems})
-});
-router.get('/farmerProfile',async function(req,res,next){
-  let productitems = await Products.find();
-  console.log(productitems);
-  res.render('farmerProfile',{obj:productitems})
-});
+
 router.post('/login', (req,res,next) =>{
   passport.authenticate('local',{
     successRedirect : '/users/farmerProfile',

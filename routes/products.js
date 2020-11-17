@@ -7,6 +7,7 @@ const auth = require('../config/auth')
 const { ensureAuth } = require('../config/auth');
 let Products = require('../models/products');
 const { connect } = require('http2');
+const { findById, findOne } = require('../models/products');
 
 router.get('/addItem', function(req, res) {
     res.render('addItem')
@@ -39,7 +40,7 @@ router.post('/addItem', upload, async function(req, res) {
     await promise;
     let productitems = await Products.find();
     console.log(productitems);
-    res.render('farmerProfile', { obj: productitems });
+    res.redirect('/users/farmerProfile');
 });
 
 router.get('/item/:_id', function(req, res, next) {
@@ -74,10 +75,31 @@ router.get('/searchProducts', function(req, res, next) {
         });
     }
 });
-router.get('/searchProducts', async function(req, res, next) {
-    let products = await Products.find();
-    res.render('searchProduct', { productList: products });
-})
+
+
+router.get('/editItem/:id',ensureAuth, function(req, res){
+    Products.findOne({ _id: req.params.id },
+        function(err, product) {
+            res.render('editItem', { productitem: product, user:req.user});
+        
+        });
+    });
+        router.post('/update/:id', function(req,res){
+            
+            Products.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function(err, product) {
+                console.log(product);
+                res.redirect('/users/farmerProfile');
+            })
+        
+        });
+
+        router.get('/remove/:id', function (req, res) {
+        Products.remove({ _id: req.params.id }, function(err, product) {
+                res.redirect('/users/farmerProfile');
+            })
+      
+        });
+    
 
 
 module.exports = router;
