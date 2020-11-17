@@ -8,4 +8,8 @@ router.get('/', async function(req, res, next) {
     res.render('index', { productList: product });
 });
 
+router.get('/products/about', async function(req, res, next) {
+    res.render('about');
+});
+
 module.exports = router;

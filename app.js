@@ -32,6 +32,13 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req,res,next){
+    console.log('inside app use')
+    res.locals.currentUser=req.user;
+    //console.log(req.user);
+    next()
+});
+  
 //database connection
 mongoose.connect('mongodb://localhost/agriDB', { useNewUrlParser: true, useUnifiedTopology: true },
     () => { console.log('successful database connection') });

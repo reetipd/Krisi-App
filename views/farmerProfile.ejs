@@ -18,36 +18,37 @@
                             <h5 class="d-inline-block"><%= user.username %></h5>
 
                             <p class="card-text">
-                            <h6 class="d-inline-block pr-2">Contact: </h6><a href="#">9843297064</a><br>
-                            <a href="#" class="ml-4 pl-5">sumibhatta37@gmail.com</a><br>
+                            <h6 class="d-inline-block pr-2">Contact: </h6><a href="#"><%= user.mobilenumber %></a><br>
+                            <a href="#" class="ml-4 pl-5"><%= user.email %></a><br>
                             <a href="#" class="ml-5 pl-4">facebook.com/sumibhatta1</a><br><br>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"><small class="text-muted"><%= user.action %></small></p>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <% if (current_user.action == "sell" ) {%>
         <div class="container col-md-12 ml-5 mt-5 mb-5">
             <div class="row">
                 <button type="button" class="btn btn-primary col-md-3 mr-5 p-3">Message</button>
                 <button type="button" class="btn btn-secondary col-md-3 mr-5"><a
                         href="/products/addItem">Add</a></button>
-                <button type="button" class="btn btn-secondary col-md-3 mr-5"><a
-                        href="/users/editItem">Edit</a></button>
+                
                 <button type="button" class="btn btn-success col-md-3 mr-5">Order</button>
             </div>
         </div>
+        <% } %>
 
         <!-- Featured -->
         <section class="Featured">
             <h2 class="page-section-heading text-center text-uppercase text-secondary pt-5">My Products</h2>
             <!--  -->
-            <% obj.forEach(function(product,i) {%>
+           
             <div class="container mt-4">
                 <div class="row">
-                    <!-- 1 -->
-                    <div class="col-auto mb-3" style="width: 22rem;">
+                    <% obj.forEach(function(product,i) {%>
+                    <div class="col-auto mb-3 col-md-3" style="width: 22rem;">
                         <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
 
                         <div class="card-body">
@@ -55,48 +56,19 @@
                             <p class="card-text"><%= product.description %>
                             </p>
                             <p class="card-text">Stock : <%= product.stock %>
-                                <a href="#" class="stretched-link">Go somewhere</a>
+                               
                         </div>
+                        <button type="button" class="btn btn-secondary "><a
+                            href="/products/editItem/<%= product._id %>">Edit</a></button>
+                            <button type="button" class="btn btn-secondary ">
+                                <a href="/products/remove/<%= product._id %>" class="card-link">Delete</a></button>   
                     </div>
-                    <!--                   
-                    <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
-
-                        <div class="card-body">
-                            <h5 class="card-title"><%= product.productName %></h5>
-                            <p class="card-text"><%= product.description %>
-                            </p>
-                            <p class="card-text">Stock : <%= product.stock %>
-                            <a href="#" class="stretched-link">Go somewhere</a>
-                        </div>
-                    </div>
-                    
-                    <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
-
-                        <div class="card-body">
-                            <h5 class="card-title"><%= product.productName %></h5>
-                            <p class="card-text"><%= product.description %>
-                            </p>
-                            <p class="card-text">Stock : <%= product.stock %>
-                            <a href="#" class="stretched-link">Go somewhere</a>
-                        </div>
-                    </div>
-                    
-                    <div class="col-auto mb-3" style="width: 22rem;">
-                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap">
-
-                        <div class="card-body">
-                            <h5 class="card-title">RICE</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
-                            <a href="#" class="stretched-link">Go somewhere</a>
-                        </div>
-                    </div> -->
-
+                     
+                  
+                    <% }) %>
                 </div>
             </div>
-            <% }) %>
+           
             <!-- eof featured product -->
         </section>
     </div>
