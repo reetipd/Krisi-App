@@ -4,7 +4,7 @@
 
         <!-- Caurosel-->
 
-        <header class="masthead text-white text-center">
+        <header class="masthead text-white text-center mt-0">
             <div class="container d-flex align-items-center flex-column">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -45,9 +45,9 @@
             <!-- Portfolio Grid Items-->
             <div class="row justify-content-center mt-5">
                 <!-- 1 -->
-                <div class="btn-group px-0 px-lg-5">
-                    <button type="button" class="btn btn-danger">Action</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="btn-group px- py-0 px-lg-5">
+                    <button type="button" class="btn btn-secondary btn-lg">Fruits</button>
+                    <button type="button" class="btn btn-secondary btn-lg dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                     <div class="dropdown-menu">
@@ -60,8 +60,8 @@
                 </div>
                 <!-- 2 -->
                 <div class="btn-group px-0 px-lg-5">
-                    <button type="button" class="btn btn-danger">Action</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-secondary btn-lg">Vegetables</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                     <div class="dropdown-menu">
@@ -74,8 +74,8 @@
                 </div>
                 <!-- 3-->
                 <div class="btn-group px-0 px-lg-5">
-                    <button type="button" class="btn btn-danger">Action</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-lg btn-secondary">Cereals</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                     <div class="dropdown-menu">
@@ -88,8 +88,8 @@
                 </div>
                 <!-- 4 -->
                 <div class="btn-group px-0 px-lg-5">
-                    <button type="button" class="btn btn-danger">Action</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-lg btn-secondary">Legumes</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                     <div class="dropdown-menu">
@@ -104,8 +104,8 @@
                 <div class="row justify-content-center pt-5 mb-5">
                     <!-- 5 -->
                     <div class="btn-group px-0 px-lg-5">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-secondary btn-lg">Poultry</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                         <div class="dropdown-menu">
@@ -118,8 +118,8 @@
                     </div>
                     <!-- 6 -->
                     <div class="btn-group px-0 px-lg-5">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-secondary btn-lg">Nursery</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                         <div class="dropdown-menu">
@@ -132,8 +132,8 @@
                     </div>
                     <!-- 7 -->
                     <div class="btn-group px-0 px-lg-5">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-secondary btn-lg">Oli seed Crop</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                         <div class="dropdown-menu">
@@ -146,8 +146,8 @@
                     </div>
                     <!-- 8 -->
                     <div class="btn-group px-0 px-lg-5">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-secondary btn-lg">Others</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                         <div class="dropdown-menu">
@@ -170,15 +170,18 @@
                     <div class="row">
                         <!-- 1 -->
                         <% productList.forEach(function (products, id) {%>
-                            <div class="col-auto mb-3" style="width: 21rem;">
+                            <div class="col-auto mb-3 bg-white ml-2 pt-2" style="width: 21rem;">
                                 <img class="card-img-top" src="<%= products.img %>" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <%= products.name %>
                                     </h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                    <p class="card-text">
+                                        <h5>Rs
+                                            <%= products.price %> per unit</h5>
                                     </p>
                                     <a href="products/item/<%= products._id %>" class="stretched-link">Go somewhere</a>
+                                    <a href="products/item/<%= products.id%>" class="stretched-link">Buy</a>
                                 </div>
                             </div>
                             <% }) %>
@@ -186,5 +189,7 @@
                     </div>
                 </div>
             </section>
-            <% include partials/footer %>
+        </div>
+
+        <% include partials/footer %>
     </body>

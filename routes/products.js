@@ -135,6 +135,15 @@ router.get('/cart',ensureAuth,async function(req,res){
     console.log(req.user)
     res.render('cart',{order_obj : order})
 });
+router.get('/searchProducts', async function(req, res, next) {
+    await Products.find(function(err, products) {
+        res.render('searchProduct', { products: products });
+    });
 
+})
 
+router.get('/cart', async function(req, res) {
+    let product = await Products.find();
+    res.render('cart', { product: product });
+})
 module.exports = router;

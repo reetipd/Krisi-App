@@ -6,16 +6,16 @@ const Users = require('../models/user');
 const Products = require('../models/products');
 const passport = require('passport');
 
-const {ensureAuth} = require('../config/auth');
+const { ensureAuth } = require('../config/auth');
 const user = require('../models/user');
 const { populate } = require('../models/products');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    res.send('respond with a resource');
 });
 
-router.get('/signup', function(req,res,next){
-  res.render('signup');
+router.get('/signup', function(req, res, next) {
+    res.render('signup');
 });
 
 router.post('/signup',async function(req,res,next){
@@ -36,24 +36,21 @@ router.post('/signup',async function(req,res,next){
         number: req.body.number,
         password : hashPw,
 
-      }
-    );
-    let promise = users.save();
-    promise.then( () =>{
-      console.log('user saved');
-      console.log(users);
-      res.redirect('/users/login')
-    }).catch((err) =>{res.send(err)})
-  }
-  
-    else{
-      
-      res.render('/users/login')
-    }
-  });
+        });
+        let promise = users.save();
+        promise.then(() => {
+            console.log('user saved');
+            console.log(users);
+            res.redirect('/users/login')
+        }).catch((err) => { res.send(err) })
+    } else {
 
-router.get('/login', function(req,res,next){
-  res.render('login');
+        res.render('/users/login')
+    }
+});
+
+router.get('/login', function(req, res, next) {
+    res.render('login');
 });
 
 router.post('/login',
