@@ -3,7 +3,7 @@
 <body>
     <h2 class=" masthead mt-5 mb-0 pb-5 page-section-heading text-center text-secondary">Edit/Delete Items</h2>
     <div class="container">
-        <form method="POST" action="/products/update/<%=productitem._id%>"  enctype="multipart/form-data">
+        <form method="POST" action="/products/update/<%= productitem._id %>"  enctype="multipart/form-data">
             <div class="form-group">
                 <label for="productName">Product Name:</label>
                 <input type="string" class="form-control" id="productName" name="productName" placeholder="Enter product name" value="<%= productitem.name %>">
@@ -30,7 +30,6 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary mr-2" name="action">Submit</button>
-                <button type="button" class="btn btn-danger " name="action">Delete</button>
             </div>
         </form>
         </div>
