@@ -85,6 +85,7 @@ router.get('/searchProducts', function(req, res, next) {
 router.get('/editItem/:id',ensureAuth, function(req, res){
     Products.findOne({ _id: req.params.id },
         function(err, product) {
+            console.log(product)
             res.render('editItem', { productitem: product, user:req.user});
         
         });
