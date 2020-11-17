@@ -8,6 +8,7 @@ const passport = require('passport');
 
 const {ensureAuth} = require('../config/auth');
 const user = require('../models/user');
+const { populate } = require('../models/products');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -21,7 +22,7 @@ router.post('/signup',async function(req,res,next){
   if(req.body.password === req.body.password2){
     const salt = await bcrypt.genSalt(10);
     const hashPw = await bcrypt.hash(req.body.password, salt);
-
+    console.log(req.body.action)
     const users = new Users(
       {
         action : req.body.action,
@@ -55,24 +56,65 @@ router.get('/login', function(req,res,next){
   res.render('login');
 });
 
-router.post('/login', (req,res,next) =>{
-  passport.authenticate('local',{
-    successRedirect : '/users/farmerProfile',
-    failureRedirect : '/users/login'
-    
+router.post('/login',
+     // (req,res,next) =>{
+    // if(req.user.action == "buy"){
+    //   console.log('buy');
+    //   next();
+    // }
+    // else{
+    //   console.log('sell');
+    //   next();
+    // }
+    // user_sel = Users.find({username:req.body.username})
+    // console.log(user_sel);
+    // next()
+    // } , 
+    async (req,res,next) =>{
+      let user_sel = await Users.findOne({username : req.body.username });
+      console.log(user_sel)
+      action_op = user_sel.action 
+      console.log(action_op)
+      if(action_op === "buy"){
+      passport.authenticate('local',{
+      successRedirect : '/users/buyerProfile',
+      failureRedirect : '/users/login'
+      
   })(req,res,next);
+}
+else{
+  passport.authenticate('local',{
+  successRedirect : '/users/farmerProfile',
+  failureRedirect : '/users/login'
+  
+})(req,res,next);
+}
 })
 
 router.get('/farmerProfile', ensureAuth, async function(req,res){
   //res.send('Here')
-   let products = await Products.find();
-   res.render('farmerProfile',{obj: products,user : req.user});
+   console.log(req.user._id);
+   let products = await Products.find({user : req.user._id });
+
+   console.log(products)
+   console.log(user)
+   res.render('farmerProfile',{obj: products ,user : req.user, current_user: req.user});
+});
+
+router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
+  console.log(req.params._id)
+  let products = await Products.find({user : req.params._id})
+  let user = await Users.findOne({_id : req.params._id})
+  //console.log(products)
+  console.log('search gareko wala user ---')
+  console.log(user)
+  console.log('session wala suer ---')
+  console.log(req.user)
+  //res.send('shdjs')
+  res.render('farmerProfile',{obj: products,user:user, current_user : req.user });
 })
 
-// router.post('/login',async function(req,res,next){
-//   let productitems = await Products.find();
-//   console.log(productitems);
-//   res.render('farmerProfile',{obj:productitems})
-// });
-
+router.get('/buyerProfile',ensureAuth, async function(req,res){
+  res.render('buyerProfile',{user: req.user})
+})
 module.exports = router;

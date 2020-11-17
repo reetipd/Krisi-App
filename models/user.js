@@ -38,10 +38,6 @@ const UserSchema = mongoose.Schema({
     information : {
         type : String,
     }
-    // products : {
-    //     type : Array,
-    // },
-
 });
 
 module.exports = mongoose.model('User',UserSchema);

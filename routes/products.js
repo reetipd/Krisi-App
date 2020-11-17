@@ -7,7 +7,8 @@ const auth = require('../config/auth')
 const { ensureAuth } = require('../config/auth');
 let Products = require('../models/products');
 const { connect } = require('http2');
-
+let Users = require('../models/user');
+let Orders = require('../models/order')
 router.get('/addItem', function(req, res) {
     res.render('addItem')
 });
@@ -26,6 +27,7 @@ const upload = multer({
 
 router.post('/addItem',ensureAuth,upload,async function(req,res){
     var obj = {
+        user : req.user._id,
         name: req.body.productName,
         category: req.body.category,
         description: req.body.description,
@@ -36,15 +38,19 @@ router.post('/addItem',ensureAuth,upload,async function(req,res){
     const product = new Products(obj);
     let promise = product.save();
     await promise;
-    let productitems = await Products.find();
+    let productitems = await Products.find({ user : req.user._id});
     console.log(productitems);
-    res.render('farmerProfile', { obj: productitems });
+    res.render('farmerProfile', { obj: productitems , user:req.user});
 });
 
-router.get('/item/:_id', function(req, res, next) {
-    Products.findOne({ id: req.params.id },
-        function(err, products) {
-            res.render('productDetail', { productitem: products });
+router.get('/item/:id', function(req, res, next) {
+    console.log(req.params.id)
+    Products.findOne({ _id: req.params.id },
+        async function(err, products) {
+            let u = await Users.findOne({_id : products.user })  
+            console.log(products)
+            console.log(u)
+            res.render('productDetail', { productitem: products, user : u });
 
         });
 
@@ -73,10 +79,62 @@ router.get('/searchProducts', function(req, res, next) {
         });
     }
 });
-router.get('/searchProducts', async function(req, res, next) {
-    let products = await Products.find();
-    res.render('searchProduct', { productList: products });
-})
+
+router.get('/cart/:id' ,ensureAuth,async function(req,res){
+    // Products.find({_id : req.params.id},  function(err,product_detail) {
+    //     console.log('product info in buyer profile')
+    //     product_detail.forEach( async function (product) {
+    //         //console.log(product.user)
+    //         var farmer_detail = await Users.find({_id : product.user })
+    //         console.log(farmer_detail)
+    //         let order_obj = {
+    //             product : req.params.id,
+    //             user :  product.user,//user is array ??//
+    //             amount : req.query.qty,
+    
+    //         }
+    //         console.log(order_obj)
+    //     })
+    //     //console.log(req.params.id)
+        
+    //     //console.log(order_obj)
+    //     res.send('sdkjhsjd')
+        
+       // res.render('cart',{user : req.user, product_detail : product_detail})
+       let pr = await Products.findOne({_id : req.params.id})
+        .populate('user')
+        .exec(async function(err, user){
+            if(user){
+                console.log(user)
+                console.log(user.user.username)
+                
+                let order_obj = {
+                    product : req.params.id,
+                    user : req.user,
+                    amount : req.query.qty,
+                    notDelivered : true,
+                }
+
+                console.log(order_obj)
+                const order = new Orders(order_obj);
+                let promise = order.save();
+                await promise;
+                res.send('Item stored in db can view in cart now')
+                //res.render('cart',{order_obj : order_obj})
+            }
+        })
+    //})
+    
+    
+});
+
+router.get('/cart',ensureAuth,async function(req,res){
+    let order = await Orders.find({user : req.user }).populate('product user')
+    console.log('----------------------cart------------')
+    console.log(order)
+    console.log(req.user)
+    res.render('cart',{order_obj : order})
+});
 
 
 module.exports = router;

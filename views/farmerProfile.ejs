@@ -18,16 +18,17 @@
                             <h5 class="d-inline-block"><%= user.username %></h5>
 
                             <p class="card-text">
-                            <h6 class="d-inline-block pr-2">Contact: </h6><a href="#">9843297064</a><br>
-                            <a href="#" class="ml-4 pl-5">sumibhatta37@gmail.com</a><br>
+                            <h6 class="d-inline-block pr-2">Contact: </h6><a href="#"><%= user.mobilenumber %></a><br>
+                            <a href="#" class="ml-4 pl-5"><%= user.email %></a><br>
                             <a href="#" class="ml-5 pl-4">facebook.com/sumibhatta1</a><br><br>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"><small class="text-muted"><%= user.action %></small></p>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <% if (current_user.action == "sell" ) {%>
         <div class="container col-md-12 ml-5 mt-5 mb-5">
             <div class="row">
                 <button type="button" class="btn btn-primary col-md-3 mr-5 p-3">Message</button>
@@ -38,6 +39,7 @@
                 <button type="button" class="btn btn-success col-md-3 mr-5">Order</button>
             </div>
         </div>
+        <% } %>
 
         <!-- Featured -->
         <section class="Featured">
