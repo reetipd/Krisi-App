@@ -82,15 +82,15 @@
                         <!-- 1 -->
                         <% productList.forEach(function (products, id) {%>
                             <div class="col-auto mb-3 " style="width: 18rem; ">
-                                <img class="card-img-top " src="/images/rice.jpg " alt="Card image cap ">
+                                <img class="card-img-top " src="<%= products.img %>" alt="Card image cap ">
                                 <div class="card-body ">
                                     <h5 class="card-title ">
                                         <%= products.name %>
                                     </h5>
                                     <p class="card-text ">
-                                        <b> Rs. <%= products.id %>/unit</b>
+                                        <b> Rs. <%= products.price %>/unit</b>
                                     </p>
-                                    <a href="/products/searchProducts/item/<%= products.id%>" class="stretched-link ">See More</a>
+                                    <a href="/products/item/<%= products.id%>" class="stretched-link ">See More</a>
                                 </div>
                             </div>
                             <% }) %>

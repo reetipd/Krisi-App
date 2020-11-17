@@ -74,9 +74,14 @@ router.get('/searchProducts', function(req, res, next) {
     }
 });
 router.get('/searchProducts', async function(req, res, next) {
-    let products = await Products.find();
-    res.render('searchProduct', { productList: products });
+    await Products.find(function(err, products) {
+        res.render('searchProduct', { products: products });
+    });
+
 })
 
-
+router.get('/cart', async function(req, res) {
+    let product = await Products.find();
+    res.render('cart', { product: product });
+})
 module.exports = router;

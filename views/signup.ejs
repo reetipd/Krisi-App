@@ -1,23 +1,19 @@
-<html>
-    <head>
-        <title> Hamro Krishi</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css">
-    </head>
-        <body class style="background:#e4dfda">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>Hamro Krishi</h1>
-                        
-                        <img src = "/images/car1.jpg" class="img img-fluid"  style = "margin-top: 60px">
+<% include partials/nav %>
 
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" style="margin-top:20px">
-                            <div class="card-header">
-                                <h2> <b>Sign Up</b></h2>
-                            </div>
-                            <!-- <% if(typeof alerts != "undefined" ){ %>
+    <body class style="background:#e4dfda">
+        <div class="container masthead pb-4">
+            <div class="row">
+                <div class="col-md-5">
+
+                    <img src="../public/images/car1.jpg" class="img img-fluid mt-5">
+
+                </div>
+                <div class="col-md-7">
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h2> <b>Sign Up</b></h2>
+                        </div>
+                        <!-- <% if(typeof alerts != "undefined" ){ %>
                                 <% alerts.forEach(function(error) { %>
 
                                     <div class="alert alert-primary" role="alert">
@@ -25,71 +21,75 @@
                                     </div>
                                 <% }) %>
                             <% } %> -->
-                            <div class="card-body">
-                                <form action="/users/signup" method="POST">
-                              
-                                  <div class="form-group">
+                        <div class="card-body">
+                            <form action="/users/signup" method="POST">
+
+                                <div class="form-group">
                                     <label for="">I am here to</label>
-        
+
                                     <input type="radio" id="buy" name="action" value="buy">
                                     <label for="Buy">Buy</label>
                                     <input type="radio" id="sell" name="action" value="sell">
                                     <label for="Sell">Sell</label>
                                     <input type="radio" id="both" name="action" value="both">
                                     <label for="Both">Both</label>
-                                  </div> 
-                                   <div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="fname">First name*<br></label>
                                     <input type="text" class='form-control' id="fname" name="fname" value="">
-                                   </div>
-                
-                                   <div class="form-group">
+                                </div>
+
+                                <div class="form-group">
                                     <label for="lname">Last name*<br></label>
                                     <input type="text" id="lname" class='form-control' name="lname" value="">
-                                   </div>
-                                   <div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="mobilenumber">Mobile Number*<br></label>
                                     <input type="text" id="mobilenumber" class='form-control' name="mobilenumber" value=""><br>
-                                      </div>
-                                     <div class="form-group">
-                                     <label for="citizenship">Citizenship Number*<br></label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="citizenship">Citizenship Number*<br></label>
                                     <input type="text" id="citizenship" class='form-control' name="citizenship" value=""><br>
-                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="address">Address*<br></label>
                                     <input type="text" id="address" class='form-control' name="address" value=""><br>
-                                    </div>
-                                     <div class="form-group">
-                                     <label for="email">Email*<br></label>
-                                     <input type="email" id="email" class='form-control' name="email" value=""><br>
-                                     </div>
-                                     <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email*<br></label>
+                                    <input type="email" id="email" class='form-control' name="email" value=""><br>
+                                </div>
+                                <div class="form-group">
                                     <label for="username">Username*<br></label>
                                     <input type="text" id="username" class='form-control' name="username" value=""><br>
-                                    </div>
-                                    <div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="password">Password*<br></label>
                                     <input type="password" id="password" class='form-control' name="password" value=""><br><br>
-                                    <% if (locals.errors){ %> 
-                                        <p><% errors.msg %></p> <!---nt showing-->
-                                    <% } %>
-                                    </div>
-                                    <div class="form-group">
+                                    <% if (locals.errors){ %>
+                                        <p>
+                                            <% errors.msg %>
+                                        </p>
+                                        <!---nt showing-->
+                                        <% } %>
+                                </div>
+                                <div class="form-group">
                                     <label for="password">Password*<br></label>
                                     <input type="password" id="password2" class='form-control' name="password2" value=""><br><br>
-                                    </div>
-                                          
-                                              <p><div class="form-group">
-                                                <input type="radio" id="buy" name="action" value="buy">
-                                                <label for="">I agree with Company name, terms and policies.</label>
-                                    <br><br>
-                
-                                  
-                                  <div class="form-group">
-                                    <input type="submit" class='btn btn-primary' value="Sign Up">
                                 </div>
+
+                                <p>
+                                    <div class="form-group">
+                                        <input type="radio" id="buy" name="action" value="buy">
+                                        <label for="">I agree with Company name, terms and policies.</label>
+                                        <br><br>
+
+
+                                        <div class="form-group">
+                                            <input type="submit" class='btn btn-primary' value="Sign Up">
+                                        </div>
                             </form>
-         
+
                             </div>
                         </div>
                     </div>
@@ -97,9 +97,8 @@
 
                     </div>
                 </div>
-               
+
             </div>
-      
-        </body>
-    
-</html>
+        </div>
+        <% include partials/footer %>
+    </body>
