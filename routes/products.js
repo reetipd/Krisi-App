@@ -13,6 +13,7 @@ router.get('/addItem', function(req, res) {
     res.render('addItem')
 });
 
+
 let storage = multer.diskStorage({
     destination: './public/uploads', //where to upload
     filename: function(req, file, cb) {
@@ -40,7 +41,7 @@ router.post('/addItem',ensureAuth,upload,async function(req,res){
     await promise;
     let productitems = await Products.find({ user : req.user._id});
     console.log(productitems);
-    res.render('farmerProfile', { obj: productitems , user:req.user});
+    res.render('farmerProfile', { obj: productitems , user:req.user, current_user : req.user});
 });
 
 router.get('/item/:id', function(req, res, next) {
@@ -80,27 +81,32 @@ router.get('/searchProducts', function(req, res, next) {
     }
 });
 
-router.get('/cart/:id' ,ensureAuth,async function(req,res){
-    // Products.find({_id : req.params.id},  function(err,product_detail) {
-    //     console.log('product info in buyer profile')
-    //     product_detail.forEach( async function (product) {
-    //         //console.log(product.user)
-    //         var farmer_detail = await Users.find({_id : product.user })
-    //         console.log(farmer_detail)
-    //         let order_obj = {
-    //             product : req.params.id,
-    //             user :  product.user,//user is array ??//
-    //             amount : req.query.qty,
+
+router.get('/editItem/:id',ensureAuth, function(req, res){
+    Products.findOne({ _id: req.params.id },
+        function(err, product) {
+            res.render('editItem', { productitem: product, user:req.user});
+        
+        });
+    });
+router.post('/update/:id', function(req,res){
     
-    //         }
-    //         console.log(order_obj)
-    //     })
-    //     //console.log(req.params.id)
-        
-    //     //console.log(order_obj)
-    //     res.send('sdkjhsjd')
-        
-       // res.render('cart',{user : req.user, product_detail : product_detail})
+    Products.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function(err, product) {
+        console.log(product);
+        res.redirect('/users/farmerProfile');
+    })
+
+});
+
+router.get('/remove/:id', function (req, res) {
+Products.remove({ _id: req.params.id }, function(err, product) {
+        res.redirect('/users/farmerProfile');
+    })
+
+});
+
+
+router.get('/cart/:id' ,ensureAuth,async function(req,res){
        let pr = await Products.findOne({_id : req.params.id})
         .populate('user')
         .exec(async function(err, user){
@@ -123,33 +129,20 @@ router.get('/cart/:id' ,ensureAuth,async function(req,res){
                 //res.render('cart',{order_obj : order_obj})
             }
         })
-    //})
     
     
 });
 
-// router.get('/cart',ensureAuth,async function(req,res){
-//     let order = await Orders.find({user : req.user }).populate('product user')
-//     console.log('----------------------cart------------')
-//     console.log(order)
-//     console.log(req.user)
-//     res.render('cart',{order_obj : order})
-// });
-// router.get('/searchProducts', async function(req, res, next) {
-//     await Products.find(function(err, products) {
-//         res.render('searchProduct', { products: products });
-//     });
-
-// })
 
 router.get('/cart', ensureAuth,async function(req, res) {
     // let product = await Products.find();
     // res.render('cart', { product: product });
     let order = await Orders.find({user : req.user }).populate('product user')
     console.log('----------------------cart------------')
-    order.forEach(function(o){
-        console.log(o.product.name)
-    })
+    // order.forEach(function(o){
+    //     console.log(o.product.name)
+    // })
+    console.log(order)
     console.log(req.user)
     res.render('cart',{order_obj : order})
 });

@@ -107,7 +107,6 @@ router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
   console.log(user)
   console.log('session wala suer ---')
   console.log(req.user)
-  //res.send('shdjs')
   res.render('farmerProfile',{obj: products,user:user, current_user : req.user });
 })
 
