@@ -1,6 +1,7 @@
 <% include partials/nav %>
 
 <body id="page-top">
+
     <h2 class=" masthead mt-5 mb-0 page-section-heading text-center text-uppercase text-secondary">Farmer Profile</h2>
 
     <div class="container">
@@ -34,8 +35,23 @@
                 <button type="button" class="btn btn-primary col-md-3 mr-5 p-3">Message</button>
                 <button type="button" class="btn btn-secondary col-md-3 mr-5"><a
                         href="/products/addItem">Add</a></button>
-                
-                <button type="button" class="btn btn-success col-md-3 mr-5">Order</button>
+
+                <button type="button" class="btn btn-success col-md-3 mr-5">Order</button><br>
+                <% if (currentUser) { %>
+
+                <button> <a class="nav-link px-0  rounded js-scroll-trigger" href="/users/logout"> Log out</a></button>
+
+                <%}
+                         else { %>
+
+                <button><a class="nav-link px-0  rounded js-scroll-trigger" href="/users/signup"> Sign Up</a></button>
+
+
+
+                <% }
+                          %>
+
+
             </div>
         </div>
         <% } %>
@@ -44,7 +60,7 @@
         <section class="Featured">
             <h2 class="page-section-heading text-center text-uppercase text-secondary pt-5">My Products</h2>
             <!--  -->
-           
+
             <div class="container mt-4">
                 <div class="row">
                     <% obj.forEach(function(product,i) {%>
@@ -56,19 +72,20 @@
                             <p class="card-text"><%= product.description %>
                             </p>
                             <p class="card-text">Stock : <%= product.stock %>
-                               
+
                         </div>
                         <button type="button" class="btn btn-secondary "><a
-                            href="/products/editItem/<%= product._id %>">Edit</a></button>
-                            <button type="button" class="btn btn-secondary ">
-                                <a href="/products/remove/<%= product._id %>" class="card-link">Delete</a></button>   
+                                href="/products/editItem/<%= product._id %>">Edit</a></button>
+                        <button type="button" class="btn btn-secondary ">
+                            <a href="/products/remove/<%= product._id %>" class="card-link">Delete</a></button>
+
                     </div>
-                     
-                  
+
+
                     <% }) %>
                 </div>
             </div>
-           
+
             <!-- eof featured product -->
         </section>
     </div>

@@ -89,6 +89,14 @@ router.post('/login',
     }
   })
 
+  // log out handle
+  router.get('/logout',ensureAuth, (req,res)=>{
+req.logOut();
+
+res.redirect('/users/login')
+  
+  });
+
 router.get('/farmerProfile', ensureAuth, async function (req, res) {
   //res.send('Here')
   console.log(req.user._id);
