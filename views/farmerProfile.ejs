@@ -2,7 +2,7 @@
 
 <body id="page-top">
     <h2 class=" masthead mt-5 mb-0 page-section-heading text-center text-uppercase text-secondary">Farmer Profile</h2>
-
+    <% include partials/messages %>
     <div class="container">
         <div class="row">
             <div class="card mb-3" style="max-width: 580px;">
@@ -58,10 +58,12 @@
                             <p class="card-text">Stock : <%= product.stock %>
                                
                         </div>
+                        <% if (currentUser.action == "sell" ) {%>
                         <button type="button" class="btn btn-secondary "><a
                             href="/products/editItem/<%= product._id %>">Edit</a></button>
                             <button type="button" class="btn btn-secondary ">
                                 <a href="/products/remove/<%= product._id %>" class="card-link">Delete</a></button>   
+                        <% } %>
                     </div>
                      
                   

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser');
 const User = require('../models/user');
 const Product = require('../models/products');
+const Order = require('../models/order');
 const passport = require('passport');
 const { ensureAuth }  = require('../config/auth')
 /* GET users listing. */
@@ -69,6 +70,8 @@ router.post('/signup',async function(req,res,next){
           await user.save();
           console.log('user saved');
           console.log(user);
+          //req.flash('success_msg','You are now registered and can log in')
+          req.flash('success_msg','You have been registered and can login now.')
           res.redirect('/users/login')
         }
         else{
@@ -98,7 +101,7 @@ router.post('/login',
     // console.log(user_sel);
     // next()
     // } , 
-    async (req,res,next) =>{
+    async function (req,res,next){
       let userSel = await User.findOne({username : req.body.username });
       console.log(userSel)
       actionOption = userSel.action 
@@ -120,13 +123,14 @@ else{
 })
 
 router.get('/farmerProfile', ensureAuth, async function(req,res){
-  //res.send('Here')
-   console.log(req.user._id);
-   let products = await Products.find({user : req.user._id });
 
-   console.log(products)
-   console.log(user)
-   res.render('farmerProfile',{obj: products ,user : req.user, current_user: req.user});
+   console.log(req.user._id);
+   const products = await Product.find({user : req.user._id });
+  //  console.log(products)
+   console.log('--orders---')
+   const order = await Order.find({delivered : true}).populate('product').
+   console.log(order)
+   res.render('farmerProfile',{obj: products ,user : req.user, currentUser: req.user});
 });
 
 router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
@@ -134,9 +138,9 @@ router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
   let products = await Product.find({user : req.params._id})
   let user = await User.findOne({_id : req.params._id})
   //console.log(products)
-  console.log('search gareko wala user ---')
+  console.log('farmer------')
   console.log(user)
-  console.log('session wala suer ---')
+  console.log('session wala user / buyer---')
   console.log(req.user)
   res.render('farmerProfile',{obj: products,user:user, currentUser : req.user });
 })

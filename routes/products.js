@@ -22,6 +22,9 @@ const upload = multer({
     storage: storage
 }).single('myImage');
 
+router.get('/addItem',ensureAuth,upload,async function(req,res){
+    res.render('addItem',{user : req.user})
+})
 
 router.post('/addItem',ensureAuth,upload,async function(req,res){
     try{
@@ -90,12 +93,12 @@ router.get('/editItem/:id',ensureAuth, function(req, res){
     Product.findOne({ _id: req.params.id },
         function(err, product) {
             console.log(product)
-            res.render('editItem', { productitem: product, user:req.user});
+            res.render('editItem', { productItem: product, user:req.user});
         
         });
     });
 router.post('/update/:id', function(req,res){
-    
+    console.log('in udate======')
     Product.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function(err, product) {
         console.log(product);
         res.redirect('/users/farmerProfile');
@@ -111,42 +114,67 @@ Product.remove({ _id: req.params.id }, function(err, product) {
 });
 
 
-router.get('/cart/:id' ,ensureAuth,async function(req,res){
-       await Product.findOne({_id : req.params.id})
-        .populate('user')
-        .exec(async function(err, user){
-            if(user){
-                console.log(user)
-                console.log(user.user.username)
+// router.get('/cart/:id' ,ensureAuth,async function(req,res){
+//        await Product.findOne({_id : req.params.id})
+//         .populate('user')
+//         .exec(async function(err, user){
+//             if(user){
+//                 console.log(user)
+//                 console.log(user.user.username)
                 
-                let orderObj = {
-                    product : req.params.id,
-                    user : req.user,
-                    amount : req.query.qty,
-                    notDelivered : true,
-                }
+//                 let orderObj = {
+//                     product : req.params.id,
+//                     user : req.user,
+//                     amount : req.query.qty,
+//                     Delivered : false,
+//                 }
 
-                console.log(orderObj)
-                const order = new Orders(orderObj);
-                let promise = await order.save();
-                // await promise;
-                res.send('Item stored in db can view in cart now')
-                //res.render('cart',{order_obj : order_obj})
-            }
-        })
+//                 console.log(orderObj)
+//                 const order = new Order(orderObj);
+//                 console.log('order---')
+//                 let promise = order.save();
+//                 await promise;
+//                 res.send('Item stored in db can view in cart now')
+//                 //res.render('cart',{order_obj : order_obj})
+//             }
+//         })
     
     
+// });
+
+router.get('/cart/:id' ,ensureAuth,async function(req,res){
+    let pr = await Product.findOne({_id : req.params.id})
+     .populate('user')
+     .exec(async function(err, user){
+         if(user){
+             console.log(user)
+             console.log(user.user.username)
+             
+             let orderObj = {
+                 product : req.params.id,
+                 user : req.user,
+                 amount : req.query.qty,
+                 delivered : false,
+             }
+
+             console.log(orderObj)
+             const order = new Order(orderObj);
+             let promise = order.save();
+             await promise;
+             req.flash('cart_msg','Your item has been added in cart.You can check the cart.')
+             res.redirect('/users/buyerProfile')
+             //res.render('cart',{order_obj : order_obj})
+         }
+     })
+ 
+ 
 });
-
 
 router.get('/cart', ensureAuth,async function(req, res) {
     // let product = await Products.find();
     // res.render('cart', { product: product });
     let order = await Order.find({user : req.user }).populate('product user')
     console.log('----------------------cart------------')
-    // order.forEach(function(o){
-    //     console.log(o.product.name)
-    // })
     console.log(order)
     console.log(req.user)
     res.render('cart',{orderObj : order})
@@ -159,8 +187,23 @@ router.get('/order/remove/:id', function(req,res){
     })
 });
 
-router.get('/checkout', function(req,res){
-    res.send('Chcekout')
+router.get('/checkout', ensureAuth, async function(req,res){
+    const order = await Order.find({ user: req.user}).populate('product user')
+    console.log('checkout-------------')
+    console.log(order)
+    order.forEach(async function(or){
+            console.log(or.product.name)
+            console.log(or.user.email)
+            console.log(or.product.stock)
+            let orderedProduct = await Product.updateOne({_id : or.product._id},{$set : {"stock" : or.product.stock - or.amount}})
+            console.log(orderedProduct)
+            
+        })
+        await Order.updateMany({user : req.user}, {$set : {"delivered" : true}})
+    req.flash('order_msg','You have orderd the items.Check your email for further infomations')
+    res.redirect('/users/buyerProfile')
+
+        
 })
 
 module.exports = router;
