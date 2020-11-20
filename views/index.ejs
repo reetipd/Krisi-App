@@ -39,7 +39,28 @@
 
         <!-- Portfolio Section-->
 
-        <div class="container">
+        <div class="container mb-5 ">
+            <form action="/products/searchlocation" method="GET">
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Category One</a>
+                            <a class="dropdown-item" href="#">Category Two</a>
+                            <a class="dropdown-item" href="#">Category Three</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated Category</a>
+                        </div>
+                    </div>
+                    <input type="text" name="search" class="form-control pt-4 pb-4 pr-5" id="form-text" placeholder="Search farmers by location">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Search</button>
+
+                    </div>
+
+                </div>
+            </form>
+
             <!-- Portfolio Section Heading-->
             <h2 class="page-section-heading text-center text-uppercase text-secondary">Categories</h2>
             <!-- Portfolio Grid Items-->

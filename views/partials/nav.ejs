@@ -25,8 +25,14 @@
         <div class="d-flex flex-row-reverse p-1  bg-secondary justify-content-between kd-on fixed-top">
             <div class="p-2 kd-on">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/login">login</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/signup">Signup</a></li>
+
+                    <% if (currentUser) { %>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/logout">logout</a></li>
+                        <%} else { %>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/login">login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/signup">Signup</a></li>
+                            <% } %>
+
                 </ul>
             </div>
         </div>
@@ -34,11 +40,11 @@
 
         <!-- bottom nav -->
         <div class="container pt-5 py-0 mb-0">
-            <a class="navbar-brand js-scroll-trigger" href="/">Hamro Krisi</a>
+            <a class="navbar-brand js-scroll-trigger" href="/"><img style="height:60px; width: 60px;" src="/images/logoo-white.png" alt=""><span style="width: 30px;"></span>HAMRO KRISI</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1">
@@ -51,12 +57,14 @@
                             <h5>PRODUCTS</h5>
                         </a>
                     </li>
+
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link px-0  rounded js-scroll-trigger" href="./about">
+                        <a class="nav-link px-0  rounded js-scroll-trigger" href="/about">
                             <h5>ABOUT</h5>
                         </a>
                     </li>
                 </ul>
+
             </div>
         </div>
         <!-- bottom nav ends-->
