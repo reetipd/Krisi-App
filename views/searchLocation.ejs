@@ -1,0 +1,66 @@
+<% include partials/nav %>
+
+    <body class style="background:#e4dfda">
+
+        <h2 class="masthead mt-5 pb-0  page-section-heading text-center text-uppercase text-secondary">Products</h2>
+        <div class="container search-box col-md-6 mt-5 pb-3">
+
+            <form action="/products/searchlocation" method="GET">
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Category One</a>
+                            <a class="dropdown-item" href="#">Category Two</a>
+                            <a class="dropdown-item" href="#">Category Three</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated Category</a>
+                        </div>
+                    </div>
+                    <input type="text" name="search" class="form-control pt-4 pb-4 pr-5" id="form-text" placeholder="Search farmers by location. ">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Search</button>
+
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+       
+                <div class="container mt-2 col-md-10 ">
+                    <div class="row ">
+                        <!-- 1 -->
+                        <% userList.forEach(function (users, id) {%>
+                            
+                            <div class="col-auto mb-3 " style="width: 18rem; ">
+                                <div class="card-body ">
+                                    <img class="bd-placeholder-img " width="100%" height="200" src="/images/default.png"
+                            preserveAspectRatio="xMidYMid slice" role="img">
+                                    <h5 class="card-title ">
+                                        <%= users.username %>
+                                    </h5>
+                                    <p class="card-text ">
+                                        <b> Address :  <%= users.address %></b>
+                                    </p>
+                                    <p class="card-text ">
+                                        <b> Phone :  <%= users.mobilenumber %></b>
+                                    </p>
+                                    <p class="card-text ">
+                                        <b> Email :  <%= users.email %></b>
+                                    </p>
+                                    <a href="/users/farmerProfile/<%= users.id %>" class="stretched-link ">See More</a>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Footer-->
+        <% include partials/footer %>
+    </body>
+
+    </html>

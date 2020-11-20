@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Hamro Krisi</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/stylesheets/style.css" rel="stylesheet" />
+</head>
+
+
+<body class style="background:#e4dfda">
+    <nav class="navbar navbar-expand-lg bg-primary text-uppercase fixed-top" id="mainNav">
+        <!-- top nav -->
+        <div class="d-flex flex-row-reverse p-1  bg-secondary justify-content-between kd-on fixed-top">
+            <div class="p-2 kd-on">
+                <ul class="navbar-nav ml-auto">
+
+                    <% if (currentUser) { %>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/logout">logout</a></li>
+                        <%} else { %>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/login">login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="px-0 px-lg-2 rounded js-scroll-trigger text-white" href="/users/signup">Signup</a></li>
+                            <% } %>
+
+                </ul>
+            </div>
+        </div>
+        <!-- top nav ends-->
+
+        <!-- bottom nav -->
+        <div class="container pt-5 py-0 mb-0">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img style="height:60px; width: 60px;" src="/images/logoo-white.png" alt=""><span style="width: 30px;"></span>HAMRO KRISI</a>
+            <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link  px-0 px-lg-3 rounded js-scroll-trigger" href="/">
+                            <h5>HOME</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link px-0 px-lg-3 rounded js-scroll-trigger" href="/products/searchProducts">
+                            <h5>PRODUCTS</h5>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link px-0  rounded js-scroll-trigger" href="/about">
+                            <h5>ABOUT</h5>
+                        </a>
+                    </li>
+                    <span style="width: 15px;"></span>
+                    <li class="nav-item mx-2 mx-lg-1">
+
+                        <a class="nav-link px-0  rounded js-scroll-trigger" href="/users/profile">
+                            <h5>PROFILE</h5>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <!-- bottom nav ends-->
+    </nav>
+    <!-- Navigation Ends-->
+</body>

@@ -1,0 +1,100 @@
+<% include partials/nav %>
+
+<body id="page-top">
+
+    <h2 class=" masthead mt-5 mb-0 page-section-heading text-center text-uppercase text-secondary">Farmer Profile</h2>
+    <% if(message.length > 0){ %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= message %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <% } %>
+    <div class="container">
+        <div class="row">
+            <div class="card mb-3" style="max-width: 580px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img class="bd-placeholder-img " width="100%" height="200" src="/images/default.png"
+                            preserveAspectRatio="xMidYMid slice" role="img">
+                        <title>Placeholder</title>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h6 class="card-title d-inline-block mr-3">Name:</h6>
+                            <h5 class="d-inline-block"><%= user.username %></h5>
+
+                            <p class="card-text">
+                            <h6 class="d-inline-block pr-2">Contact: </h6><a href="#"><%= user.mobilenumber %></a><br>
+                            <a href="#" class="ml-4 pl-5"><%= user.email %></a><br>
+                            <a href="#" class="ml-5 pl-4">facebook.com/sumibhatta1</a><br><br>
+                            <p class="card-text"><small class="text-muted">Location : <%= user.address %></small></p>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if (emailFlag) {%>
+        <div class="container col-md-12 ml-5 mt-5 mb-5">
+            <div class="row">
+                <button type="button" class="btn btn-secondary col-md-3 mr-5"><a
+                        href="/products/addItem">Add Items</a></button>
+
+                <button type="button" class="btn btn-success col-md-3 mr-5"><a href = "/users/checkOrder">Check your order</a></button><br>
+                <!---- <% if (currentUser) { %>
+
+                <button> <a class="nav-link px-0  rounded js-scroll-trigger" href="/users/logout"> Log out</a></button>
+
+                <%}
+                         else { %>
+
+                <button><a class="nav-link px-0  rounded js-scroll-trigger" href="/users/signup"> Sign Up</a></button>
+
+
+
+                <% }
+                          %>-->
+
+
+            </div>
+        </div>
+        <% } %>
+
+        <!-- Featured -->
+        <section class="Featured">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary pt-5">My Products</h2>
+            <!--  -->
+
+            <div class="container mt-4">
+                <div class="row">
+                    <% obj.forEach(function(product,i) {%>
+                    <div class="col-auto mb-3 col-md-3" style="width: 22rem;">
+                        <img class="card-img-top" src="<%= product.img %>" alt="Card image cap"> 
+
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="card-text"><%= product.description %>
+                            </p>
+                            <p class="card-text">Stock : <%= product.stock %>
+                        </div>
+                        <button type="button" class="btn btn-secondary "><a href="/products/item/<%= product.id%>">See More</a></button>
+                        <% if (emailFlag) { %>
+                        <button type="button" class="btn btn-secondary "><a href="/products/editItem/<%= product._id %>">Edit</a></button>
+                            <button type="button" class="btn btn-secondary ">
+                                <a href="/products/remove/<%= product._id %>" class="card-link">Delete</a></button>   
+                        <% } %>
+                    </div>
+
+
+                    <% }) %>
+                </div>
+            </div>
+
+            <!-- eof featured product -->
+        </section>
+    </div>
+    <% include partials/footer %>
+</body>
