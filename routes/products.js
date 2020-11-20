@@ -64,6 +64,30 @@ router.get('/item/:id', async function(req, res, next) {
 
 });
 
+router.get('/searchlocation', function(req, res, next) {
+    if (req.query.search) {
+        User.find({ address: req.query.search , action : 'sell'},
+            function(err, users) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(users)
+                    //res.send('users')
+                    res.render('searchLocation', { userList: users });
+                }
+            });
+
+    } else {
+        Product.find({}, function(err, users) {
+            if (err) {
+                console.log(err);
+            } else {
+                //res.send('not found')
+                res.render('searchLocation', { userList: users });
+            }
+        });
+    }
+});
 
 
 router.get('/searchProducts', function(req, res, next) {
@@ -98,7 +122,7 @@ router.get('/editItem/:id',ensureAuth, function(req, res){
         });
     });
 router.post('/update/:id', function(req,res){
-    console.log('in udate======')
+    console.log('in update--')
     Product.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function(err, product) {
         console.log(product);
         res.redirect('/users/farmerProfile');
@@ -147,14 +171,18 @@ router.get('/cart/:id' ,ensureAuth,async function(req,res){
      .populate('user')
      .exec(async function(err, user){
          if(user){
+             console.log('------------------')
+             console.log(req.user._id)
              console.log(user)
-             console.log(user.user.username)
-             
+             console.log(user.user._id)
+            //  console.log(user.user.username)
+             console.log('---------')
              let orderObj = {
                  product : req.params.id,
                  user : req.user,
                  amount : req.query.qty,
                  delivered : false,
+                 farmerId : user.user._id
              }
 
              console.log(orderObj)

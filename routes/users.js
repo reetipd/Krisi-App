@@ -122,15 +122,57 @@ else{
 }
 })
 
+// router.get('/farmerProfile',ensureAuth, async function(req,res){
+//   const products = await Product.find({user : req.user._id });
+//   console.log('----------------------')
+//   const data = await Order.aggregate([
+//     {$lookup : { from : 'products',
+//                   localField : 'product._id',
+//                   foreignField : '_id',
+//                   as : 'products'},
+  
+//   },{
+//      $lookup : { from : 'products',
+//                   localField : 'product.user._id',
+//                   foreignField : 'user',
+//                   as : 'users'},
+  
+//   },{
+//      $match : {
+//                   users:req.user._id
+//      }
+//     }
+                
+//   ])
+//   console.log(data)
+//   res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}})
+// })
+
 router.get('/farmerProfile', ensureAuth, async function(req,res){
 
    console.log(req.user._id);
    const products = await Product.find({user : req.user._id });
   //  console.log(products)
    console.log('--orders---')
-   const order = await Order.find({delivered : true}).populate('product').
-   console.log(order)
-   res.render('farmerProfile',{obj: products ,user : req.user, currentUser: req.user});
+   let order = await Order.find({delivered : true , farmerId : req.user._id})
+   order.forEach(async function(o){
+    await Order.updateMany({_id : o._id}, {$set : {"delivered" : false}})
+   })
+   
+  //  const order = await Order.find({delivered : true})
+  //  .populate({
+  //    path : 'product',
+  //    populate : ({
+  //      path : 'user',
+  //    }),
+     
+  //  })
+  //console.log(JSON.stringify(order,null,2))
+  if (order != ''){
+    res.render('farmerProfile',{obj: products ,user : req.user,emailFlag : true,  message : 'Check your email for order details'});
+  }else{
+    res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}});
+  }
 });
 
 router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
@@ -139,10 +181,17 @@ router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
   let user = await User.findOne({_id : req.params._id})
   //console.log(products)
   console.log('farmer------')
-  console.log(user)
+  console.log(user.email)
   console.log('session wala user / buyer---')
-  console.log(req.user)
-  res.render('farmerProfile',{obj: products,user:user, currentUser : req.user });
+  console.log(req.user.email)
+  let emailFlag = false;
+  if(user.email == req.user.email){
+    emailFlag = true;  
+    res.render('farmerProfile',{obj: products,user:user,  emailFlag : true, message :{} });
+  }
+  else{
+    res.render('farmerProfile',{obj: products,user:user, emailFlag : false, message :{} });
+  }
 })
 
 router.get('/buyerProfile',ensureAuth, async function(req,res){

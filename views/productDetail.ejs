@@ -56,8 +56,10 @@
                 </div>
                 <h5>Stock : <%= productItem.stock %></h5>
                 <label for="quantity">Quantity : </label><input type="number" name="qty" id="qty" value="1" min="1" max="10000" style="margin-left: 10px;"><br>
+                <% if (user.action == 'buy') {%>
                 <button type="submit" class="btn btn-success" style="border-radius: 20px; margin: 8px;">Add to cart</button>
-                <button type="submit" class="btn btn-primary" style="border-radius: 20px; margin: 8px;">Message</button>
+                <button type="button" class="btn btn-primary" style="border-radius: 20px; margin: 8px;">Message</button>
+                <% } %>
             </div>
         </div>
 
@@ -68,7 +70,7 @@
                 <h2>Farmer-Detail</h2>
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="<%= productItem.user.img %>" alt="" style="border-radius: 50%; width: 80px;height: 80px;">
+                        <img src="/images/default.png" alt="" style="border-radius: 50%; width: 80px;height: 80px;">
                     </div>
                     <div class="col-md-8">
                         <p>Name : <%= user.username %></p>
