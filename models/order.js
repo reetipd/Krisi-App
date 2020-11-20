@@ -1,28 +1,30 @@
 const mongoose = require('mongoose');
 
 const OrderSchema = mongoose.Schema({
-    user : {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Users'
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     },
 
-    product : {
-        type : mongoose.Schema.Types.ObjectId, ref : 'Products'
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Products'
     },
-    farmerId : {
-        type : String
+    farmerId: {
+        type: String
     },
-    amount : {
-        type : Number
+    amount: {
+        type: Number
     },
-    price : {
-        type : Number,
+    price: {
+        type: Number,
     },
     delivered: {
-        type : Boolean,
+        type: Boolean,
         default: false,
     }
 
-}) 
+})
 module.exports = mongoose.model('Orders', OrderSchema);
 
 // user

@@ -38,22 +38,22 @@ app.use(function(req, res, next) {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     next();
-  });
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req,res,next){
+app.use(function(req, res, next) {
     console.log('inside app use')
-    res.locals.currentUser=req.user;
+    res.locals.currentUser = req.user;
     //console.log(req.user);
     next()
 });
-  
+
 //database connection
 mongoose.connect('mongodb://localhost/agriDB', { useNewUrlParser: true, useUnifiedTopology: true },
     () => { console.log('successful database connection') });
 
-    mongoose.set('useFindAndModify', false);
+mongoose.set('useFindAndModify', false);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

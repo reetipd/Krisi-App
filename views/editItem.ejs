@@ -1,39 +1,40 @@
 <% include partials/nav %>
-<html>
-<body>
-    <h2 class=" masthead mt-5 mb-0 pb-5 page-section-heading text-center text-secondary">Edit Items</h2>
-    <div class="container">
-        <form method="POST" action="/products/update/<%= productItem._id %>" >
-            <div class="form-group">
-                <label for="productName">Product Name:</label>
-                <input type="string" class="form-control" id="productName" name="productName" placeholder="Enter product name" value="<%= productItem.name %>">
-            </div>
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <input type="string" class="form-control" id="category" name="category" placeholder="Category" value="<%= productItem.category %>">
-            </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="string" class="form-control" id="description" name="description" placeholder="Enter description" value="<%= productItem.description %>">
-            </div>
-            <div class="form-group">
-                <label for="stock">Stock:</label>
-                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" value="<%= productItem.stock %>">
-            </div>
-            <div class="form-group">
-                <label for="price">Price:</label>
-                <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" value="<%= productItem.price %>">
-            </div>
-           <!--- <div class="form-group">
+    <html>
+
+    <body>
+        <h2 class=" masthead mt-5 mb-0 pb-5 page-section-heading text-center text-secondary">Edit Items</h2>
+        <div class="container">
+            <form method="POST" action="/products/update/<%= productItem._id %>">
+                <div class="form-group">
+                    <label for="productName">Product Name:</label>
+                    <input type="string" class="form-control" id="productName" name="productName" placeholder="Enter product name" value="<%= productItem.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="string" class="form-control" id="category" name="category" placeholder="Category" value="<%= productItem.category %>">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="string" class="form-control" id="description" name="description" placeholder="Enter description" value="<%= productItem.description %>">
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" value="<%= productItem.stock %>">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" value="<%= productItem.price %>">
+                </div>
+                <!--- <div class="form-group">
                 <label for="img">Image:</label>
                 <input type="file" class="form-control" id="img" name="img" >
             </div>-->
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary mr-2" name="action">Submit</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary mr-2" name="action">Submit</button>
+                </div>
+            </form>
         </div>
-</body>
+    </body>
 
-</html>
-<% include partials/footer %>
+    </html>
+    <% include partials/footer %>

@@ -2,42 +2,42 @@ const mongoose = require('mongoose');
 
 //define the farmer model schema
 const UserSchema = mongoose.Schema({
-    action:{
-        type:String
+    action: {
+        type: String
     },
-    fname : {
-        type : String
+    fname: {
+        type: String
     },
-    lame : {
-        type : String
+    lame: {
+        type: String
     },
     // farm_name : {
     //     type : String,
     // },
-    mobilenumber : {
+    mobilenumber: {
         type: Number,
     },
-    citizeship : {
-        type : Number,
+    citizeship: {
+        type: Number,
     },
-    email : {
-        type:String
-    }, 
-    username : {
-        type : String
+    email: {
+        type: String
     },
-    password : {
-        type : String,
+    username: {
+        type: String
     },
-    password2 : {
-        type:String,
+    password: {
+        type: String,
     },
-    address : {
-        type : String,
+    password2: {
+        type: String,
     },
-    information : {
-        type : String,
+    address: {
+        type: String,
+    },
+    information: {
+        type: String,
     }
 });
 
-module.exports = mongoose.model('Users',UserSchema);
+module.exports = mongoose.model('Users', UserSchema);

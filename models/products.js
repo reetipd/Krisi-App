@@ -30,7 +30,8 @@ const ProductSchema = mongoose.Schema({
         type: String,
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Users'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     },
     createdAt: {
         type: Date,
