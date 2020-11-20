@@ -53,6 +53,8 @@ app.use(function(req,res,next){
 mongoose.connect('mongodb://localhost/agriDB', { useNewUrlParser: true, useUnifiedTopology: true },
     () => { console.log('successful database connection') });
 
+    mongoose.set('useFindAndModify', false);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

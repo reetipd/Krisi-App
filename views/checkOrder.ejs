@@ -1,0 +1,39 @@
+
+<html>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <h2>Your Orders!!!</h2>
+        <table style = "border : 1px solid black">
+         
+            <thead> 
+                <tr> 
+                    <th style = "border : 1px solid black">Product Name</th> 
+                    <th style = "border : 1px solid black">Amount </th>
+                    <th style = "border : 1px solid black">Price (per kg)</th>
+                    <th style = "border : 1px solid black">Buyer Name</th> 
+                    <th style = "border : 1px solid black">Buyer Phone No.</th> 
+                    <th style = "border : 1px solid black">Buyer Email</th> 
+               </tr> 
+           </thead> 
+           <tbody> 
+               <% orderArray.forEach(function(order){ %>
+               <tr> 
+                   <td style = "border : 1px solid black"><%= order.productName%></td> 
+                   <td style = "border : 1px solid black"><%= order.orderAmount %></td>
+                   <td style = "border : 1px solid black"><%= order.productPrice %></td>
+                   <td style = "border : 1px solid black"><%= order.buyerName %></td> 
+                   <td style = "border : 1px solid black"><%= order.buyerPhone %></td> 
+                   <td style = "border : 1px solid black"><%= order.buyerEmail %></td> 
+               </tr> 
+               <% }) %>
+       
+           </tbody> 
+       </table>
+       
+    </body>
+    
+</html>

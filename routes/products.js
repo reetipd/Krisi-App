@@ -27,29 +27,25 @@ router.get('/addItem',ensureAuth,upload,async function(req,res){
 })
 
 router.post('/addItem',ensureAuth,upload,async function(req,res){
-    try{
-        var obj = {
-            user : req.user._id,
-            name: req.body.productName,
-            category: req.body.category,
-            description: req.body.description,
-            stock: req.body.stock,
-            price: req.body.price,
-            img: '/uploads/' + req.file.filename //filename - storage garda use gareko name.
-        }
-        const product = new Product(obj);
-        let promise = await product.save();
-        let productItems = await Products.find({ user : req.user._id});
-        console.log(productItems);
-        res.render('farmerProfile', { obj: productItems , user:req.user, current_user : req.user, err : {}});
+    var obj = {
+        user : req.user._id,
+        name: req.body.productName,
+        category: req.body.category,
+        description: req.body.description,
+        stock: req.body.stock,
+        price: req.body.price,
+        img: '/uploads/' + req.file.filename //filename - storage garda use gareko name.
     }
-    catch(err){
-        console.log(err)
-        res.render('farmerProfile',{obj : {}, user :{}, current_user : {}, err : {message : err.message || "Cannot add new item"}})
-    }
+    const product = new Product(obj);
+    let promise = product.save();
+    await promise;
+    let productItems = await Product.find({ user : req.user._id});
+    console.log(productItems);
+    res.render('farmerProfile', { obj: productItems , user:req.user, currentUser : req.user,message : {},emailFlag : true,});
 });
 
-router.get('/item/:id', async function(req, res, next) {
+router.get('/item/:id',async function(req, res, next) {
+    
     try{
         const product = await Product.findOne({_id : req.params.id})
         const user = await User.findOne({_id : product.user })
@@ -121,9 +117,19 @@ router.get('/editItem/:id',ensureAuth, function(req, res){
         
         });
     });
-router.post('/update/:id', function(req,res){
+
+router.post('/update/:id',ensureAuth, function(req,res){
     console.log('in update--')
-    Product.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function(err, product) {
+    console.log(req.body.productName)
+    Product.findOneAndUpdate({ _id: req.params.id }, { $set: {
+        user : req.user._id,
+        name: req.body.productName,
+        category: req.body.category,
+        description: req.body.description,
+        stock: req.body.stock,
+        price: req.body.price,
+        } },
+        function(err, product) {
         console.log(product);
         res.redirect('/users/farmerProfile');
     })
@@ -138,45 +144,17 @@ Product.remove({ _id: req.params.id }, function(err, product) {
 });
 
 
-// router.get('/cart/:id' ,ensureAuth,async function(req,res){
-//        await Product.findOne({_id : req.params.id})
-//         .populate('user')
-//         .exec(async function(err, user){
-//             if(user){
-//                 console.log(user)
-//                 console.log(user.user.username)
-                
-//                 let orderObj = {
-//                     product : req.params.id,
-//                     user : req.user,
-//                     amount : req.query.qty,
-//                     Delivered : false,
-//                 }
-
-//                 console.log(orderObj)
-//                 const order = new Order(orderObj);
-//                 console.log('order---')
-//                 let promise = order.save();
-//                 await promise;
-//                 res.send('Item stored in db can view in cart now')
-//                 //res.render('cart',{order_obj : order_obj})
-//             }
-//         })
-    
-    
-// });
-
 router.get('/cart/:id' ,ensureAuth,async function(req,res){
     let pr = await Product.findOne({_id : req.params.id})
      .populate('user')
      .exec(async function(err, user){
          if(user){
-             console.log('------------------')
+             console.log('---------adding in cart---------')
              console.log(req.user._id)
              console.log(user)
              console.log(user.user._id)
             //  console.log(user.user.username)
-             console.log('---------')
+
              let orderObj = {
                  product : req.params.id,
                  user : req.user,

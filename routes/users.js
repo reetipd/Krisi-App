@@ -129,59 +129,39 @@ router.get('/logout',ensureAuth, (req,res)=>{
     
     });
 
-// router.get('/farmerProfile',ensureAuth, async function(req,res){
-//   const products = await Product.find({user : req.user._id });
-//   console.log('----------------------')
-//   const data = await Order.aggregate([
-//     {$lookup : { from : 'products',
-//                   localField : 'product._id',
-//                   foreignField : '_id',
-//                   as : 'products'},
-  
-//   },{
-//      $lookup : { from : 'products',
-//                   localField : 'product.user._id',
-//                   foreignField : 'user',
-//                   as : 'users'},
-  
-//   },{
-//      $match : {
-//                   users:req.user._id
-//      }
-//     }
-                
-//   ])
-//   console.log(data)
-//   res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}})
-// })
+router.get('/farmerProfile',ensureAuth, async function(req,res){
+  console.log(req.user)
+  const products = await Product.find({user : req.user._id });
+  res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}})
+})
 
-router.get('/farmerProfile', ensureAuth, async function(req,res){
+// router.get('/farmerProfile', ensureAuth, async function(req,res){
 
-   console.log(req.user._id);
-   const products = await Product.find({user : req.user._id });
-  //  console.log(products)
-   console.log('--orders---')
-   let order = await Order.find({delivered : true , farmerId : req.user._id})
-   order.forEach(async function(o){
-    await Order.updateMany({_id : o._id}, {$set : {"delivered" : false}})
-   })
+//    console.log(req.user._id);
+//    const products = await Product.find({user : req.user._id });
+//   //  console.log(products)
+//    console.log('--orders---')
+//    let order = await Order.find({delivered : true , farmerId : req.user._id})
+//    order.forEach(async function(o){
+//     await Order.updateMany({_id : o._id}, {$set : {"delivered" : false}})
+//    })
    
-  //  const order = await Order.find({delivered : true})
-  //  .populate({
-  //    path : 'product',
-  //    populate : ({
-  //      path : 'user',
-  //    }),
+//   //  const order = await Order.find({delivered : true})
+//   //  .populate({
+//   //    path : 'product',
+//   //    populate : ({
+//   //      path : 'user',
+//   //    }),
      
-  //  })
-  //console.log(JSON.stringify(order,null,2))
-  if (order != ''){
-    //req.flash('ordersuccess_msg','Check mail')
-    res.render('farmerProfile',{obj: products ,user : req.user,emailFlag : true,  message : 'Check your email for order details'});
-  }else{
-    res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}});
-  }
-});
+//   //  })
+//   //console.log(JSON.stringify(order,null,2))
+//   if (order != ''){
+//     //req.flash('ordersuccess_msg','Check mail')
+//     res.render('farmerProfile',{obj: products ,user : req.user,emailFlag : true,  message : 'Check your email for order details'});
+//   }else{
+//     res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}});
+//   }
+// });
 
 router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
   console.log(req.params._id)
@@ -202,7 +182,83 @@ router.get('/farmerProfile/:_id',ensureAuth, async function(req,res){
   }
 })
 
+router.get('/checkOrder',ensureAuth, async function(req,res){
+  console.log('order---')
+  const data = await Order.aggregate([
+    {$match : {
+      delivered : true,
+    }
+  },
+    {$lookup : { from : 'products',
+                  localField : 'product',
+                  foreignField : '_id',
+                  as : 'product'},
+  
+  },
+  //{$unwind: '$product'},
+  {
+     $lookup : { from : 'users',
+                  localField : 'product.0.user',
+                  foreignField : '_id',
+                  as : 'farmer'},
+  
+  },{
+     $match : {
+                  'farmer.0._id':req.user._id,
+     },
+    },{
+      $lookup : { from : 'users',
+                   localField : 'user',
+                   foreignField : '_id',
+                   as : 'buyer'},
+   
+   }
+                
+  ])
+  let orderArray = []
+  data.forEach(function(order){
+    let orderAmount = order.amount
+    let singleProduct = order.product
+    singleProduct.forEach(function(productInfo){
+       productName = productInfo.name
+       productPrice = productInfo.price
+      //console.log(productName)
+    })
+    let buyer = order.buyer
+    buyer.forEach(function(buyerInfo){
+       buyerEmail = buyerInfo.email
+       buyerPhone = buyerInfo.mobilenumber
+       buyerName = buyerInfo.username
+    })
+
+    let orderObject = {
+      orderAmount : orderAmount,
+      productName : productName,
+      buyerEmail : buyerEmail,
+      buyerPhone : buyerPhone,
+      buyerName : buyerName,
+      productPrice : productPrice
+    }
+    orderArray.push(orderObject)
+    console.log(orderObject)
+  })
+  console.log('--array--')
+  console.log(orderArray)
+  
+  res.render('checkOrder',{orderArray : orderArray})
+})
+
 router.get('/buyerProfile',ensureAuth, async function(req,res){
   res.render('buyerProfile',{user: req.user})
 })
 module.exports = router;
+
+router.get('/profile',ensureAuth,function(req,res){
+  if(req.user.action == "sell"){
+    res.redirect('farmerProfile')
+  }
+  else{
+    res.redirect('buyerProfile')
+  }
+  
+})

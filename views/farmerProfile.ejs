@@ -41,9 +41,9 @@
         <div class="container col-md-12 ml-5 mt-5 mb-5">
             <div class="row">
                 <button type="button" class="btn btn-secondary col-md-3 mr-5"><a
-                        href="/products/addItem">Add</a></button>
+                        href="/products/addItem">Add Items</a></button>
 
-                <button type="button" class="btn btn-success col-md-3 mr-5">Order</button><br>
+                <button type="button" class="btn btn-success col-md-3 mr-5"><a href = "/users/checkOrder">Check your order</a></button><br>
                 <!---- <% if (currentUser) { %>
 
                 <button> <a class="nav-link px-0  rounded js-scroll-trigger" href="/users/logout"> Log out</a></button>
@@ -79,8 +79,8 @@
                             <p class="card-text"><%= product.description %>
                             </p>
                             <p class="card-text">Stock : <%= product.stock %>
-                            <p><a href="/products/item/<%= product.id%>" class="stretched-link ">See More</a> </p>  
                         </div>
+                        <button type="button" class="btn btn-secondary "><a href="/products/item/<%= product.id%>">See More</a></button>
                         <% if (emailFlag) { %>
                         <button type="button" class="btn btn-secondary "><a href="/products/editItem/<%= product._id %>">Edit</a></button>
                             <button type="button" class="btn btn-secondary ">
