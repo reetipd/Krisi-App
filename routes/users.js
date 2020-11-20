@@ -121,6 +121,13 @@ else{
 })(req,res,next);
 }
 })
+// log out handle
+router.get('/logout',ensureAuth, (req,res)=>{
+  req.logOut();
+  
+  res.redirect('/users/login')
+    
+    });
 
 // router.get('/farmerProfile',ensureAuth, async function(req,res){
 //   const products = await Product.find({user : req.user._id });
@@ -169,6 +176,7 @@ router.get('/farmerProfile', ensureAuth, async function(req,res){
   //  })
   //console.log(JSON.stringify(order,null,2))
   if (order != ''){
+    //req.flash('ordersuccess_msg','Check mail')
     res.render('farmerProfile',{obj: products ,user : req.user,emailFlag : true,  message : 'Check your email for order details'});
   }else{
     res.render('farmerProfile',{obj: products ,user : req.user, emailFlag : true, message : {}});

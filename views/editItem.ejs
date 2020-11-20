@@ -6,7 +6,7 @@
         <form method="POST" action="/products/update/<%= productItem._id %>"  enctype="multipart/form-data">
             <div class="form-group">
                 <label for="productName">Product Name:</label>
-                <input type="string" class="form-control" id="productName" name="productName" placeholder="Enter product name" value="<%= productItem.name %>">
+                <input type="string" class="form-control" id="productName" name="name" placeholder="Enter product name" value="<%= productItem.name %>">
             </div>
             <div class="form-group">
                 <label for="category">Category:</label>
@@ -18,16 +18,16 @@
             </div>
             <div class="form-group">
                 <label for="stock">Stock:</label>
-                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" value="<% productItem.stock %>">
+                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" value="<%= productItem.stock %>">
             </div>
             <div class="form-group">
                 <label for="price">Price:</label>
-                <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" value="<%=productItem.price %>">
+                <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" value="<%= productItem.price %>">
             </div>
-            <div class="form-group">
+           <!--- <div class="form-group">
                 <label for="img">Image:</label>
-                <input type="file" name="myImage" value = "<%= productItem.img %>">
-            </div>
+                <input type="file" class="form-control" id="img" name="img" >
+            </div>-->
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary mr-2" name="action">Submit</button>
             </div>
